@@ -64,7 +64,7 @@ class Problem59C(private val maxLetterNumber: Int, pattern: String) {
     }
 
     /**
-     * Replaces question marks with already determined by palindrome condition letters.
+     * Replaces question marks with letters determined by palindrome condition .
      *
      * @return true if the title can be palindrome, and false otherwise
      */
