@@ -2,6 +2,9 @@ package ru.hse.spb
 
 import java.util.*
 
+private const val NO_SOLUTION_ANSWER = "IMPOSSIBLE"
+private const val QUESTION_MARK = '?'
+
 /**
  * Solution for codeforces.com/problemset/problem/59/C?locale=en.
  *
@@ -9,34 +12,34 @@ import java.util.*
  * @param pattern approximate variant of the title
  */
 class Problem59C(private val maxLetterNumber: Int, pattern: String) {
+    private var isSolved = false
     private var answer: String? = null
     private var unusedLetter = 'a'
     private val pattern: CharArray = pattern.toCharArray()
     private val usedLetters = HashMap<Char, Boolean>()
 
     /**
-     * Returns lexicographically smallest correct title if it's possible, and [noSolutionAnswer] otherwise.
+     * Returns lexicographically smallest correct title if it's possible, and null otherwise.
      */
-    fun solve(): String {
-        val answer = this.answer
-        if (answer != null) {
+    fun solve(): String? {
+        if (isSolved) {
             return answer
         }
 
         if (!completePattern()) {
-            this.answer = noSolutionAnswer
-            return noSolutionAnswer
+            isSolved = true
+            return answer
         }
         markUsedLetters()
 
         val unusedLettersNumber = maxLetterNumber - usedLetters.size
         val lastIndex = pattern.size - 1
         val freePosNumber = (0..lastIndex / 2)
-                .filter { pattern[it] == questionMark }
+                .filter { pattern[it] == QUESTION_MARK }
                 .count()
         if (unusedLettersNumber > freePosNumber || unusedLettersNumber < 0) {
-            this.answer = noSolutionAnswer
-            return noSolutionAnswer
+            isSolved = true
+            return answer
         }
         var difference = freePosNumber - unusedLettersNumber
         (0..lastIndex / 2)
@@ -54,9 +57,10 @@ class Problem59C(private val maxLetterNumber: Int, pattern: String) {
                         usedLetters[unusedLetter] = true
                     }
                 }
-        this.answer = pattern.joinToString("")
+        answer = pattern.joinToString("")
+        isSolved = true
 
-        return pattern.joinToString("")
+        return answer
     }
 
     /**
@@ -69,8 +73,8 @@ class Problem59C(private val maxLetterNumber: Int, pattern: String) {
 
         for (i in 0..lastIndex / 2) {
             when {
-                pattern[i] == questionMark -> pattern[i] = pattern[lastIndex - i]
-                pattern[lastIndex - i] == questionMark -> pattern[lastIndex - i] = pattern[i]
+                pattern[i] == QUESTION_MARK -> pattern[i] = pattern[lastIndex - i]
+                pattern[lastIndex - i] == QUESTION_MARK -> pattern[lastIndex - i] = pattern[i]
                 pattern[i] != pattern[lastIndex - i] -> return false
             }
         }
@@ -84,7 +88,7 @@ class Problem59C(private val maxLetterNumber: Int, pattern: String) {
     private fun markUsedLetters() {
         val middle = (pattern.size - 1) / 2
         (0..middle)
-                .filter { pattern[it] != questionMark }
+                .filter { pattern[it] != QUESTION_MARK }
                 .forEach { usedLetters[pattern[it]] = true }
     }
 
@@ -96,12 +100,6 @@ class Problem59C(private val maxLetterNumber: Int, pattern: String) {
             unusedLetter = unusedLetter.inc()
         }
     }
-
-    companion object {
-        val noSolutionAnswer = "IMPOSSIBLE"
-        val questionMark = '?'
-    }
-
 }
 
 fun main(args: Array<String>) {
@@ -109,5 +107,5 @@ fun main(args: Array<String>) {
     val maxLetterNumber = scanner.nextInt()
     val pattern = scanner.next()
     val problem = Problem59C(maxLetterNumber, pattern)
-    print(problem.solve())
+    print(problem.solve() ?: NO_SOLUTION_ANSWER)
 }

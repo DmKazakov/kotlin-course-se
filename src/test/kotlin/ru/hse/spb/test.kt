@@ -7,7 +7,7 @@ class TestSource {
     @Test
     fun testFirstExample() {
         val problem = Problem59C(3, "a?c")
-        assertEquals("IMPOSSIBLE", problem.solve())
+        assertEquals(null, problem.solve())
     }
 
     @Test
