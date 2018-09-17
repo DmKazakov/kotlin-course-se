@@ -27,23 +27,18 @@ class Problem59C(private val maxLetterNumber: Int, pattern: String) {
         }
 
         if (!completePattern()) {
-            isSolved = true
-            return answer
+            return toSolvedState(null)
         }
         markUsedLetters()
 
         val unusedLettersNumber = maxLetterNumber - usedLetters.size
-        val lastIndex = pattern.size - 1
-        val freePosNumber = (0..lastIndex / 2)
-                .filter { pattern[it] == QUESTION_MARK }
-                .count()
+        val lastIndex = pattern.lastIndex
+        val freePosNumber = (0..lastIndex / 2).count { pattern[it] == QUESTION_MARK }
         if (unusedLettersNumber > freePosNumber || unusedLettersNumber < 0) {
-            isSolved = true
-            return answer
+            return toSolvedState(null)
         }
         var difference = freePosNumber - unusedLettersNumber
         (0..lastIndex / 2)
-                .asSequence()
                 .filter { pattern[it] == '?' }
                 .forEach {
                     if (difference > 0) {
@@ -57,10 +52,20 @@ class Problem59C(private val maxLetterNumber: Int, pattern: String) {
                         usedLetters[unusedLetter] = true
                     }
                 }
-        answer = pattern.joinToString("")
-        isSolved = true
 
-        return answer
+        return toSolvedState(pattern.joinToString(""))
+    }
+
+    /**
+     * Change object's state to solved and cashes [answer]
+     *
+     * @return [answer]
+     */
+    private fun toSolvedState(answer: String?): String? {
+        return answer.also {
+            this.answer = answer
+            isSolved = true
+        }
     }
 
     /**
@@ -69,7 +74,7 @@ class Problem59C(private val maxLetterNumber: Int, pattern: String) {
      * @return true if the title can be palindrome, and false otherwise
      */
     private fun completePattern(): Boolean {
-        val lastIndex = pattern.size - 1
+        val lastIndex = pattern.lastIndex
 
         for (i in 0..lastIndex / 2) {
             when {
@@ -86,7 +91,7 @@ class Problem59C(private val maxLetterNumber: Int, pattern: String) {
      * Marks used letters in [usedLetters].
      */
     private fun markUsedLetters() {
-        val middle = (pattern.size - 1) / 2
+        val middle = pattern.lastIndex / 2
         (0..middle)
                 .filter { pattern[it] != QUESTION_MARK }
                 .forEach { usedLetters[pattern[it]] = true }
