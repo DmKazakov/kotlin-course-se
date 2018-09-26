@@ -180,7 +180,7 @@ class Parser(private val lexemes: List<LexemePosition>) {
         val varLexeme = assertLexeme(Keyword.VAR)
 
         val identifier = parseIdentifier()
-        val expression= if (checkLexeme(Operator.ASSIGN)) {
+        val expression = if (checkLexeme(Operator.ASSIGN)) {
             currentPosition++
             parseExpression()
         } else {
@@ -202,7 +202,7 @@ class Parser(private val lexemes: List<LexemePosition>) {
         return ReturnNode(result.getPosition(), parseExpression())
     }
 
-    private fun parseExpression(): ExprNode  = parseBinaryExpression()
+    private fun parseExpression(): ExprNode = parseBinaryExpression()
 
     private fun parseBinaryExpression(): BinaryExprNode {
         return parsePrecedence(OperatorType.CLAUSE)

@@ -124,11 +124,11 @@ class LexerTest {
     fun testGetLexemesLF() {
         val lexer = Lexer("first % line\nSecond^liNe")
         val expected = listOf(
-                LexemePosition(Identifier("first"),  line = 1, begin = 1, end = 5),
+                LexemePosition(Identifier("first"), line = 1, begin = 1, end = 5),
                 LexemePosition(Operator.MODULO, line = 1, begin = 7, end = 7),
                 LexemePosition(Identifier("line"), line = 1, begin = 9, end = 12),
                 LexemePosition(Separator.LF, line = 1, begin = 13, end = 13),
-                LexemePosition(Identifier("Second"),  line = 2, begin = 1, end = 6),
+                LexemePosition(Identifier("Second"), line = 2, begin = 1, end = 6),
                 LexemePosition(Operator.EXPONENTIATION, line = 2, begin = 7, end = 7),
                 LexemePosition(Identifier("liNe"), line = 2, begin = 8, end = 11),
                 LexemePosition(Separator.EOF, line = 2, begin = 11, end = 11)
@@ -193,8 +193,8 @@ class LexerTest {
     fun testGetLexemesMalformedNum() {
         exception.expect(InterpretationException::class.java)
         exception.expectMessage(getExceptionMessage(1, 13))
-            val lexer = Lexer("val p5 = 543?\nfoo(p5)")
-            lexer.getLexemes()
+        val lexer = Lexer("val p5 = 543?\nfoo(p5)")
+        lexer.getLexemes()
     }
 
     private fun getExceptionMessage(line: Int, position: Int): String = "Error:($line, $position) failed to tokenize."

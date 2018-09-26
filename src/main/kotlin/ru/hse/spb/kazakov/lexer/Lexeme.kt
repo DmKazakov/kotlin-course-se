@@ -22,7 +22,7 @@ enum class Operator(override val length: Int, private val function: (Int, Int) -
     NOT_EQUAL(2, { x, y -> if (x != y) 1 else 0 }),
     AND(2, { x, y -> if (x != 0 && y != 0) 1 else 0 }),
     OR(2, { x, y -> if (x != 0 || y != 0) 1 else 0 }),
-    ASSIGN(1, { _, y -> y});
+    ASSIGN(1, { _, y -> y });
 
     fun evaluate(x: Int, y: Int) = function(x, y)
 }
