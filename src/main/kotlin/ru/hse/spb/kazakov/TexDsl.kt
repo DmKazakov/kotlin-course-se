@@ -119,7 +119,13 @@ abstract class BlockCommand(
         vararg options: String
 ) : ExternalCommand(name, argument, *options) {
 
-    fun frame(name: String? = null, vararg options: String, init: Frame.() -> Unit) = initElement(Frame(name, *options), init)
+    fun frame(
+            name: String? = null, vararg options: String, init: Frame.() -> Unit
+    ) = initElement(Frame(name, *options), init)
+
+    fun frame(
+            name: String? = null, option: Pair<String, String>, vararg options: Pair<String, String>, init: Frame.() -> Unit
+    ) = initElement(Frame(name, option, *options), init)
 
     fun enumerate(vararg options: String, init: Enumerate.() -> Unit) = initElement(Enumerate(*options), init)
 
@@ -140,7 +146,11 @@ class Enumerate(vararg options: String) : ListCommand("enumerate", null, *option
 
 class Itemize(vararg options: String) : ListCommand("itemize", null, *options)
 
-class Frame(frame: String?, vararg options: String) : BlockCommand("frame", frame, *options)
+class Frame(frame: String?, vararg options: String) : BlockCommand("frame", frame, *options) {
+    constructor(
+            frame: String?, vararg options: Pair<String, String>
+    ) : this(frame, *options.toOptionsArray())
+}
 
 class CustomTag(name: String, vararg options: String) : BlockCommand(name, null, *options)
 

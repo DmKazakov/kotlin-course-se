@@ -106,6 +106,8 @@ class TexDslTest {
             }
             frame("title", "plain", "shrink") {
             }
+            frame("title", "arg1" to "arg2") {
+            }
         }.toString()
 
         assertEquals("""
@@ -115,6 +117,8 @@ class TexDslTest {
             |        frame text
             |    \end{frame}
             |    \begin{frame}[plain,shrink]{title}
+            |    \end{frame}
+            |    \begin{frame}[arg1=arg2]{title}
             |    \end{frame}
             |\end{document}
             |""".trimMargin(), result)
@@ -129,6 +133,8 @@ class TexDslTest {
             }
             frame("title", "plain", "shrink") {
             }
+            frame("title", "arg1" to "arg2") {
+            }
         }.toOutputStream(System.out)
 
         assertEquals("""
@@ -138,6 +144,8 @@ class TexDslTest {
             |        frame text
             |    \end{frame}
             |    \begin{frame}[plain,shrink]{title}
+            |    \end{frame}
+            |    \begin{frame}[arg1=arg2]{title}
             |    \end{frame}
             |\end{document}
             |""".trimMargin(), outContent.toString())
