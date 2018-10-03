@@ -58,10 +58,10 @@ data class PosInFile(val line: Int, val begin: Int) {
 }
 
 data class LexemePosition(
-        val lexeme: Lexeme,
-        val line: Int,
-        val begin: Int,
-        val end: Int
+    val lexeme: Lexeme,
+    val line: Int,
+    val begin: Int,
+    val end: Int
 ) {
     fun getPosition(): PosInFile = PosInFile(line, begin)
 }

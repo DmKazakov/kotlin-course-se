@@ -137,8 +137,8 @@ class Lexer(sourceCode: String) {
 
     private fun addLexeme(lexeme: Lexeme) {
         val lexemePosition = LexemePosition(
-                lexeme,
-                line = currentLine, begin = currentPosOnLine - lexeme.length, end = currentPosOnLine - 1
+            lexeme,
+            line = currentLine, begin = currentPosOnLine - lexeme.length, end = currentPosOnLine - 1
         )
         lexemes.add(lexemePosition)
 

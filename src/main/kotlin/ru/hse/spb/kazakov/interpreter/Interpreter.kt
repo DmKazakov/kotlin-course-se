@@ -106,7 +106,7 @@ class Interpreter(private val root: BlockNode) {
         is FunCallNode -> {
             val identifier = expression.identifier.value
             val function = scope.getFunction(identifier)
-                    ?: throw InterpretationException("Error${expression.posInFile}: function $identifier is undefined.")
+                ?: throw InterpretationException("Error${expression.posInFile}: function $identifier is undefined.")
             val arguments = mutableListOf<Int>()
             for (argument in expression.args) {
                 arguments.add(evaluateExpr(argument, scope))
@@ -121,7 +121,7 @@ class Interpreter(private val root: BlockNode) {
         }
 
         is IdentNode -> scope.getVariable(expression.value)
-                ?: throw InterpretationException(undefinedVarErrorMessage(expression))
+            ?: throw InterpretationException(undefinedVarErrorMessage(expression))
 
         is LiteralNode -> expression.value
 
