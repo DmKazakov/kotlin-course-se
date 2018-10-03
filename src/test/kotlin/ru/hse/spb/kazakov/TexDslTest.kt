@@ -32,12 +32,14 @@ class TexDslTest {
             +"text"
         }.toOutputStream(System.out)
 
-        assertEquals("""
+        assertEquals(
+            """
                     |\documentClass{beamer}
                     |\begin{document}
                     |    text
                     |\end{document}
-                    |""".trimMargin(), outContent.toString())
+                    |""".trimMargin(), outContent.toString()
+        )
     }
 
     @Test
@@ -47,12 +49,14 @@ class TexDslTest {
             +"text"
         }.toString()
 
-        assertEquals("""
+        assertEquals(
+            """
                     |\documentClass{beamer}
                     |\begin{document}
                     |    text
                     |\end{document}
-                    |""".trimMargin(), result)
+                    |""".trimMargin(), result
+        )
     }
 
     @Test
@@ -65,7 +69,8 @@ class TexDslTest {
             usepackage("geometry", "left" to "9mm", "right" to "3mm", "top" to "5mm", "bottom" to "6mm")
         }.toOutputStream(System.out)
 
-        assertEquals("""
+        assertEquals(
+            """
             |\documentClass{article}
             |\usepackage{cmap}
             |\usepackage[option=value]{package}
@@ -73,7 +78,8 @@ class TexDslTest {
             |\usepackage[left=9mm,right=3mm,top=5mm,bottom=6mm]{geometry}
             |\begin{document}
             |\end{document}
-            |""".trimMargin(), outContent.toString())
+            |""".trimMargin(), outContent.toString()
+        )
     }
 
     @Test
@@ -86,7 +92,8 @@ class TexDslTest {
             usepackage("geometry", "left" to "9mm", "right" to "3mm", "top" to "5mm", "bottom" to "6mm")
         }.toString()
 
-        assertEquals("""
+        assertEquals(
+            """
             |\documentClass{article}
             |\usepackage{cmap}
             |\usepackage[option=value]{package}
@@ -94,7 +101,8 @@ class TexDslTest {
             |\usepackage[left=9mm,right=3mm,top=5mm,bottom=6mm]{geometry}
             |\begin{document}
             |\end{document}
-            |""".trimMargin(), result)
+            |""".trimMargin(), result
+        )
     }
 
     @Test
@@ -110,7 +118,8 @@ class TexDslTest {
             }
         }.toString()
 
-        assertEquals("""
+        assertEquals(
+            """
             |\documentClass{article}
             |\begin{document}
             |    \begin{frame}
@@ -121,7 +130,8 @@ class TexDslTest {
             |    \begin{frame}[arg1=arg2]{title}
             |    \end{frame}
             |\end{document}
-            |""".trimMargin(), result)
+            |""".trimMargin(), result
+        )
     }
 
     @Test
@@ -137,7 +147,8 @@ class TexDslTest {
             }
         }.toOutputStream(System.out)
 
-        assertEquals("""
+        assertEquals(
+            """
             |\documentClass{article}
             |\begin{document}
             |    \begin{frame}
@@ -148,7 +159,8 @@ class TexDslTest {
             |    \begin{frame}[arg1=arg2]{title}
             |    \end{frame}
             |\end{document}
-            |""".trimMargin(), outContent.toString())
+            |""".trimMargin(), outContent.toString()
+        )
     }
 
     @Test
@@ -173,7 +185,8 @@ class TexDslTest {
             }
         }.toString()
 
-        assertEquals("""
+        assertEquals(
+            """
             |\documentClass{article}
             |\begin{document}
             |    \begin{enumerate}
@@ -189,7 +202,8 @@ class TexDslTest {
             |            item
             |    \end{enumerate}
             |\end{document}
-            |""".trimMargin(), result)
+            |""".trimMargin(), result
+        )
     }
 
     @Test
@@ -214,7 +228,8 @@ class TexDslTest {
             }
         }.toOutputStream(System.out)
 
-        assertEquals("""
+        assertEquals(
+            """
             |\documentClass{article}
             |\begin{document}
             |    \begin{enumerate}
@@ -230,7 +245,8 @@ class TexDslTest {
             |            item
             |    \end{enumerate}
             |\end{document}
-            |""".trimMargin(), outContent.toString())
+            |""".trimMargin(), outContent.toString()
+        )
     }
 
     @Test
@@ -255,7 +271,8 @@ class TexDslTest {
             }
         }.toString()
 
-        assertEquals("""
+        assertEquals(
+            """
             |\documentClass{article}
             |\begin{document}
             |    \begin{itemize}
@@ -271,7 +288,8 @@ class TexDslTest {
             |            item
             |    \end{itemize}
             |\end{document}
-            |""".trimMargin(), result)
+            |""".trimMargin(), result
+        )
     }
 
     @Test
@@ -296,7 +314,8 @@ class TexDslTest {
             }
         }.toOutputStream(System.out)
 
-        assertEquals("""
+        assertEquals(
+            """
             |\documentClass{article}
             |\begin{document}
             |    \begin{itemize}
@@ -312,7 +331,8 @@ class TexDslTest {
             |            item
             |    \end{itemize}
             |\end{document}
-            |""".trimMargin(), outContent.toString())
+            |""".trimMargin(), outContent.toString()
+        )
     }
 
     @Test
@@ -324,14 +344,16 @@ class TexDslTest {
             }
         }.toString()
 
-        assertEquals("""
+        assertEquals(
+            """
             |\documentClass{article}
             |\begin{document}
             |$$
             |    dp[i] = dp[i / 2] + x_i
             |$$
             |\end{document}
-            |""".trimMargin(), result)
+            |""".trimMargin(), result
+        )
     }
 
     @Test
@@ -343,14 +365,16 @@ class TexDslTest {
             }
         }.toOutputStream(System.out)
 
-        assertEquals("""
+        assertEquals(
+            """
             |\documentClass{article}
             |\begin{document}
             |$$
             |    dp[i] = dp[i / 2] + x_i
             |$$
             |\end{document}
-            |""".trimMargin(), outContent.toString())
+            |""".trimMargin(), outContent.toString()
+        )
     }
 
     @Test
@@ -368,7 +392,8 @@ class TexDslTest {
             }
         }.toString()
 
-        assertEquals("""
+        assertEquals(
+            """
             |\documentClass{article}
             |\begin{document}
             |    \begin{flushleft}
@@ -381,7 +406,8 @@ class TexDslTest {
             |        center
             |    \end{center}
             |\end{document}
-            |""".trimMargin(), result)
+            |""".trimMargin(), result
+        )
     }
 
     @Test
@@ -399,7 +425,8 @@ class TexDslTest {
             }
         }.toOutputStream(System.out)
 
-        assertEquals("""
+        assertEquals(
+            """
             |\documentClass{article}
             |\begin{document}
             |    \begin{flushleft}
@@ -412,7 +439,8 @@ class TexDslTest {
             |        center
             |    \end{center}
             |\end{document}
-            |""".trimMargin(), outContent.toString())
+            |""".trimMargin(), outContent.toString()
+        )
     }
 
     @Test
@@ -426,7 +454,8 @@ class TexDslTest {
             }
         }.toString()
 
-        assertEquals("""
+        assertEquals(
+            """
             |\documentClass{article}
             |\begin{document}
             |    \begin{pyglist}[language=kotlin]
@@ -435,7 +464,8 @@ class TexDslTest {
             |    \begin{tag}[option1,option2]
             |    \end{tag}
             |\end{document}
-            |""".trimMargin(), result)
+            |""".trimMargin(), result
+        )
     }
 
     @Test
@@ -449,7 +479,8 @@ class TexDslTest {
             }
         }.toOutputStream(System.out)
 
-        assertEquals("""
+        assertEquals(
+            """
             |\documentClass{article}
             |\begin{document}
             |    \begin{pyglist}[language=kotlin]
@@ -458,7 +489,8 @@ class TexDslTest {
             |    \begin{tag}[option1,option2]
             |    \end{tag}
             |\end{document}
-            |""".trimMargin(), outContent.toString())
+            |""".trimMargin(), outContent.toString()
+        )
     }
 
     @Test

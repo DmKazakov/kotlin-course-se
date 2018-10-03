@@ -58,9 +58,9 @@ abstract class MainElement : Element {
 }
 
 abstract class OneLineCommand(
-        private val name: String,
-        private val argument: String? = null,
-        private vararg val options: String
+    private val name: String,
+    private val argument: String? = null,
+    private vararg val options: String
 ) : MainElement() {
 
     override fun render(output: Render, ident: String) {
@@ -73,9 +73,9 @@ abstract class OneLineCommand(
 }
 
 abstract class ExternalCommand(
-        private val name: String?,
-        private val argument: String?,
-        private vararg val options: String
+    private val name: String?,
+    private val argument: String?,
+    private vararg val options: String
 ) : MainElement() {
 
     private val children = mutableListOf<Element>()
@@ -114,17 +114,17 @@ abstract class ExternalCommand(
 }
 
 abstract class BlockCommand(
-        name: String,
-        argument: String?,
-        vararg options: String
+    name: String,
+    argument: String?,
+    vararg options: String
 ) : ExternalCommand(name, argument, *options) {
 
     fun frame(
-            name: String? = null, vararg options: String, init: Frame.() -> Unit
+        name: String? = null, vararg options: String, init: Frame.() -> Unit
     ) = initElement(Frame(name, *options), init)
 
     fun frame(
-            name: String? = null, option: Pair<String, String>, vararg options: Pair<String, String>, init: Frame.() -> Unit
+        name: String? = null, option: Pair<String, String>, vararg options: Pair<String, String>, init: Frame.() -> Unit
     ) = initElement(Frame(name, option, *options), init)
 
     fun enumerate(vararg options: String, init: Enumerate.() -> Unit) = initElement(Enumerate(*options), init)
@@ -134,11 +134,11 @@ abstract class BlockCommand(
     fun math(init: Math.() -> Unit) = initElement(Math(), init)
 
     fun customTag(
-            name: String, vararg options: String, init: CustomTag.() -> Unit
+        name: String, vararg options: String, init: CustomTag.() -> Unit
     ) = initElement(CustomTag(name, *options), init)
 
     fun customTag(
-            name: String, vararg options: Pair<String, String>, init: CustomTag.() -> Unit
+        name: String, vararg options: Pair<String, String>, init: CustomTag.() -> Unit
     ) = initElement(CustomTag(name, *options.toOptionsArray()), init)
 }
 
@@ -148,14 +148,14 @@ class Itemize(vararg options: String) : ListCommand("itemize", null, *options)
 
 class Frame(frame: String?, vararg options: String) : BlockCommand("frame", frame, *options) {
     constructor(
-            frame: String?, vararg options: Pair<String, String>
+        frame: String?, vararg options: Pair<String, String>
     ) : this(frame, *options.toOptionsArray())
 }
 
 class CustomTag(name: String, vararg options: String) : BlockCommand(name, null, *options)
 
 abstract class ListCommand(
-        name: String, argument: String?, vararg options: String
+    name: String, argument: String?, vararg options: String
 ) : ExternalCommand(name, argument, *options) {
 
     fun item(init: Item.() -> Unit) = initElement(Item(), init)
@@ -187,12 +187,12 @@ class CenterAlign : BlockCommand("center", null)
 class RightAlign : BlockCommand("flushright", null)
 
 class DocumentClass(
-        documentClass: String, vararg options: String
+    documentClass: String, vararg options: String
 ) : OneLineCommand("documentClass", documentClass, *options)
 
 class Package(packageName: String, vararg options: String) : OneLineCommand("usepackage", packageName, *options) {
     constructor(
-            packageName: String, vararg options: Pair<String, String>
+        packageName: String, vararg options: Pair<String, String>
     ) : this(packageName, *options.toOptionsArray())
 }
 
