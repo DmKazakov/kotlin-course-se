@@ -346,7 +346,7 @@ class InterpreterTest {
         val fooCall = FunCallNode(mockPos, foo, emptyList())
         val block = BlockNode(listOf(fooDef, fooCall))
         exception.expect(InterpretationException::class.java)
-        exception.expectMessage("Error(1, 2): return must be last statement of scope.")
+        exception.expectMessage("Error(1, 2): return must be last statement of block.")
         Interpreter(block).getOutput()
     }
 
@@ -361,7 +361,7 @@ class InterpreterTest {
         val fooCall = FunCallNode(mockPos, foo, emptyList())
         val block = BlockNode(listOf(fooDef, fooCall))
         exception.expect(InterpretationException::class.java)
-        exception.expectMessage("Error(1, 2): return must be last statement of scope.")
+        exception.expectMessage("Error(1, 2): return must be last statement of block.")
         Interpreter(block).getOutput()
     }
 

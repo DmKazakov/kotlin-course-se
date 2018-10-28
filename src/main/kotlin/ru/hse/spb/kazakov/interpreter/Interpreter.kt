@@ -51,7 +51,7 @@ class Interpreter(private val root: BlockNode) {
                         throw InterpretationException("Error${statement.posInFile}: return isn't allowed in main body.")
                     }
                     if (index != block.statements.lastIndex) {
-                        throw InterpretationException("Error${statement.posInFile}: return must be last statement of scope.")
+                        throw InterpretationException("Error${statement.posInFile}: return must be last statement of block.")
                     }
                     result = evaluateExpr(statement.value, scope)
                 }
