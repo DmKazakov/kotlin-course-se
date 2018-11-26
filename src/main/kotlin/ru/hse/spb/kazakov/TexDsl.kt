@@ -64,10 +64,12 @@ abstract class OneLineCommand(
 ) : MainElement() {
 
     override fun render(output: Render, ident: String) {
-        output.append("$ident\\$name")
-        output.appendOptions(options)
-        output.appendArgument(argument)
-        output.newLine()
+        with(output) {
+            append("$ident\\$name")
+            appendOptions(options)
+            appendArgument(argument)
+            newLine()
+        }
     }
 
 }
@@ -81,7 +83,7 @@ abstract class ExternalCommand(
     private val children = mutableListOf<Element>()
 
     operator fun String.unaryPlus() {
-        children.add(TextElement(this))
+        children += TextElement(this)
     }
 
     protected fun renderChildren(output: Render, ident: String) {
@@ -197,23 +199,23 @@ class Package(packageName: String, vararg options: String) : OneLineCommand("use
 }
 
 class Document : BlockCommand("document", null) {
-    private var documentClass: DocumentClass? = null
+    private lateinit var docClass: DocumentClass
     private val packages = mutableListOf<Package>()
 
     override fun render(output: Render, ident: String) {
-        if (documentClass == null) {
+        if (!this::docClass.isInitialized) {
             throw RenderException("Document must have a document class.")
         }
-        documentClass?.render(output, ident)
+        docClass.render(output, ident)
         packages.forEach { it.render(output, ident) }
         super.render(output, ident)
     }
 
     fun documentClass(documentClass: String, vararg options: String) {
-        if (this.documentClass != null) {
+        if (this::docClass.isInitialized) {
             throw RenderException("Document must have one document class.")
         }
-        this.documentClass = DocumentClass(documentClass, *options)
+        this.docClass = DocumentClass(documentClass, *options)
     }
 
     fun usepackage(packageName: String, vararg options: String) {
